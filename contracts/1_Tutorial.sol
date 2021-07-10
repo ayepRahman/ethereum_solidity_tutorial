@@ -22,8 +22,60 @@ pragma solidity >=0.7.0 <0.9.0;
     Ref Types: string, array, struct & mapping
     
     - constant & immutable cost less gas.
+    
+    @Solidity variables Types
+    - Solidity is a programming language that is statically-typed, meaning that every variable Types
+      must be specified at compile time.
+    
+    Simple types:
+    1. Boolean: true or false
+    2. Integers
+        a. Signed
+            - int8, is between -128 ~ +127
+            - int256
+        b. Unsigned 
+            - uint8
+            - unint256
+        - int is alias to int256 & uint is an alias to uinit256
+        - int default value of 0;
+        - solidity does not support float/double
+    3. Arrays
+        a. Fixed-size Arrays
+            - has a compile-time fixed sizeof
+            - bytes1
 
 */
+
+contract FixedSizeArrays{
+    // declaring a fixed-size array of type uint with 3 elements
+    uint[3] public numbers = [2, 3, 4];
+     
+    // declaring fixed-size arrays of type bytes
+    bytes1 public b1;
+    bytes2 public b2;
+    bytes3 public b3;
+    //.. up to bytes32
+     
+    // changing an element of the array at a specific index
+    function setElement(uint index, uint value) public{
+        numbers[index] = value;
+    }
+     
+    // returning the number of elements in the array
+    function getLength() public view returns(uint){
+        return numbers.length;
+    }
+     
+    // setting bytes arrays
+    function setBytesArray() public{
+        b1 = 'a'; // => 0x61 (ASCII code of `a` in hex)
+        b2 = 'ab'; // => 0x6162
+        b3 = 'z'; // => 0x7A
+        // b3[0] = 'a'; // ERROR => can not change individual bytes
+         
+        // byte is an alias for bytes1 on older code
+    }
+}
 
 contract Property {
     int public price;
@@ -31,7 +83,7 @@ contract Property {
     // declaring "immutable" will not allow the variables to be updated once deploy
     // can be initialized at declaration or in the constructor only
     address immutable public owner;
-    
+
     /*
         @Constructor
         - we can deploy our contract with args for us to set our storage variables
