@@ -1,4 +1,4 @@
-#State variables
+# State variables
 
 1. Storage
 
@@ -22,12 +22,12 @@ Ref Types: string, array, struct & mapping
 
 - constant & immutable cost less gas.
 
-#Solidity variables Types
+# Solidity variables Types
 
 - Solidity is a programming language that is statically-typed, meaning that every variable Types
   must be specified at compile time.
 
-#Simple types:
+# Simple types:
 
 1. Boolean: true or false
 2. Integers
@@ -39,7 +39,7 @@ Ref Types: string, array, struct & mapping
 3. Arrays
    a. Fixed-size Arrays - has a compile-time fixed sizeof - bytes1
 
-#Struct
+# Struct
 
 - A struct is a collection of key:value pairs similar to a mapping, but the values can have many types.
 - A struct introduces a new complex data type, that composed elementary data types.
@@ -47,12 +47,12 @@ Ref Types: string, array, struct & mapping
   mappings to present a collection of things
 - A struct is saved in a storage and if declared in a function it references storage by default.
 
-#Enum
+# Enum
 
 - Enums are used to create user-defined types;
 - Enum is explicitly convertible to and from integer;
 
-#Mapping
+# Mapping
 
 - It's a date structure that holds key:value pairs. Its similar to Python Dictionaries, JS object or Java HashMaps;
 - All keys must have the same type and all values must have the same type;
@@ -66,12 +66,12 @@ Ref Types: string, array, struct & mapping
   that returns the correspinding value from the mapping;
 - If we want the value of unexisting key we get a default value;
 
-#Storage VS memory
+# Storage VS memory
 
 - declaring "memory" variables will not update state variable.
 - delcaring "storage" variables will be able to update state variables.
 
-#Build in Global Variables
+# Build in Global Variables
 
 - msg: contains information about the account that generates the transaction and
   also about the transaction or call
@@ -86,3 +86,23 @@ Ref Types: string, array, struct & mapping
 - block.difficulty
 - block.gaslimit
 - tx.gasprice: gas price of the transaction.
+
+# Contract Address
+
+- Any contract has its own unique address that is generated at deployment.
+- The contract address is generated based on the address of the creator of the contract and the no. of transactions of that acccount (nonce). It can't be calculated in advance.
+- There are 2 types of addresses: plain and payable.
+- Address is a variable type and has the following members:
+  - balance
+  - transfer(): should be used in most cases as it's the safest way to send ETH.
+  - send(): is like a low-level transfer(). If execustion fails the contract will not stop and send() will return false.
+  - transfer() & send() are available only for payable addresses.
+  - call(), callcode(), deletegatecall()
+
+# Payable Functions and Contract Balance
+
+- A smart contract can reveice ETH and can have an ETH balance only if there is a payable function defined.
+- A contract receives ETH in multiple ways:
+  - Simple by sending ETH to the contract adress by an EOA account.In this case the contract needs at least a function called receive() or a fallback().
+  - By calling a payable function and sending ETH with taht transaction.
+- The ETH balance of the contract is in possession of anyone who can call the transfer() function of the address.
