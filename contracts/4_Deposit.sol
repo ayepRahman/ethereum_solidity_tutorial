@@ -38,7 +38,9 @@ contract Deposit{
         return address(this).balance;
     }
     
+    // transfering ether from the contract to another address (recipient)
     function transferEtherFromContract(address payable recepient, uint amount) public returns(bool) {
+        // checking that only contract owner can send ether from the contract to another address
         require(owner == msg.sender, "Transfer failed, you are not the owner!!");
         
         if (amount <= getBalance()) {

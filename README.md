@@ -7,7 +7,7 @@
 
 2. Stack
 
-- Holds local variables defined inside fucntuions fi they are not reference types (e.g. int);
+- Holds local variables defined inside function if they are not reference types (e.g. int, uint);
 - Free to be used (does not cost gas)
 
 3. Memory
@@ -106,3 +106,28 @@ Ref Types: string, array, struct & mapping
   - Simple by sending ETH to the contract adress by an EOA account.In this case the contract needs at least a function called receive() or a fallback().
   - By calling a payable function and sending ETH with taht transaction.
 - The ETH balance of the contract is in possession of anyone who can call the transfer() function of the address.
+
+# Variables & Functions Visibility
+
+There are 4 types of visibilities for function and state variables.
+
+1. Public
+
+- The function is part of the contract interface and can be called both internally (from within the same contract) and externally (from other contracts or by EOA account).
+- The is the default for functions.
+- A getter is automatically created for public variables. They can be easily accessed from DApps.
+
+2. Private
+
+- Private functions and variables are available only in the contract ehy are defined in (not in other contractsL derived or underived). Private is a subset of Internal.
+- They can be accessed in the current contract only by getter function.
+
+3. Internal
+
+- Functions are accessible only from the contract they are defined in and from derived contracts.
+- This is the default for state variables. They can be accessed in the current and derived contracts.
+
+4. External
+
+- The function is part of the contract interface, can be accessed only from other contracts or by EOA accounts using transactions. It's automatically public.
+- Not-available for state variables.
