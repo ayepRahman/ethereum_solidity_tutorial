@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity >=0.7.0 <0.9.0;
+pragma solidity >=0.8.0 <0.9.0;
 
 /**
   The Lottery Smart Contracts
@@ -25,7 +25,7 @@ pragma solidity >=0.7.0 <0.9.0;
     // introuduce solidity 0.6 
    receive() external payable {
     // 100000000000000000 wei == 0.1 ETH;
-    require(msg.value == 1 ether, 'You can only stake an exact amount of 0.1 ETH!');
+    // require(msg.value == 1 ether, 'You can only stake an exact amount of 0.1 ETH!');
     players.push(payable(msg.sender));
    }
 
@@ -36,26 +36,31 @@ pragma solidity >=0.7.0 <0.9.0;
    }
    
   function random() public view returns(uint) {
-    return  uint( keccak256(abi.encodePacked(block.difficulty, block.timestamp, players.length)) );
+    return  uint( keccak256(abi.encodePacked(block.difficulty, block.timestamp, players.length)));
+  }
+  
+  function resetPlayers() public {
+    // resetting lottery to an empty array;
+    players = new address payable[](0);
   }
   
   function pickWinner() public {
-      require(msg.sender == manager);
-      require(players.length >= 3);
+      require(msg.sender == manager, 'Only manager is allowed to pick a winner!');
+      require(players.length >= 2);
       
       address payable winner;
       uint amount = getBalance();
-      uint deductableValue = amount * 10 / 10000;
-      uint winnerPotValue = amount * 90 / 1000;
+      uint deductableValue = amount / 10;
+      uint winnerPotValue = (amount / 10) * 9 ;
       uint r = random();
       uint index = r % players.length;
       
       winner = players[index];
-      // allowing "manager" address to be payable.
+      // allowing "manager" address to be payable and transfer the lottery fee of 20% to manager.
       payable(manager).transfer(deductableValue);
+      // transfer 90% the lottery pot to the winner.
       winner.transfer(winnerPotValue);
       
-      // resetting lottery to an empty array;
-      players = new address payable[](0);
+      resetPlayers();
   }
  }
