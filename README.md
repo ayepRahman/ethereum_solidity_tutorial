@@ -147,3 +147,25 @@ There are 4 types of visibilities for function and state variables.
 - We dont proactively send back the funs to the users that didnt win the auction. We'll use the "withdrawal pattern" instead.
 - We should only send ETH to a user when he explicitly requests it.
 - This is the "withdrawal" pattern and helps use avoiding "re-entrance attacks" that could cause unexpected behavior, including catastophic financial loss for the users.
+
+## Solidity Events
+
+- Each ethereum transaction has attached to it a receipt which contains zero or more log entries.
+- They are called "events" in Solidity and Web3, and logs inEVM and Yellow pages.
+- Events allow Javascript callback functions that listen for them in the user interface to update the interface accordingly.
+- Generated events are not accessible from within contracts, not even from the one which has created and emitted them. They can only be accessed by external actors such as JS.
+- Events are inheritable members of contracts so if you declare an event in an interface or base contract you dont need to declare it in the derived contracts. You just emit it!.
+- An Event is declared using the event keyword and by convention its name starts with an uppercase letter.
+
+```
+// declaring an Event, naming convention using CamelCase.
+
+event Transfer(address _to, uint _value);
+```
+
+- Event are emmited insider setter functions using emit followed by the name of the event.
+
+```
+// emit an Event
+emit Transfer(_to, msg.value)
+```
