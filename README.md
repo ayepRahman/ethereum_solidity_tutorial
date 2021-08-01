@@ -169,3 +169,40 @@ event Transfer(address _to, uint _value);
 // emit an Event
 emit Transfer(_to, msg.value)
 ```
+
+## Inheritance in Solidity
+
+- A contract acts like a class. A contract can inherit from another contract known as the base contract to share a common interface.
+- The general inheritance system is very similar to Python's, especially concerning multiple inheritance.
+- Solidity supports multiple inheritance including polymorphism. Multiple inheritace introduces problems like the "diamond problem" and should be avoided.
+- When a contract inherites from multiple contracts, only a single contract is created on the blockchain, and the code from all the base contracts is copied into the created contract.
+- All function calls are virtual, which means that the most derived function is called, except when the contract name is explicitly given.
+- When deploying a derived contract the case contract's constructor is automatically called.
+- "is" keyword uis used whe declaring a new derived contract.
+
+## Abstract Contracts
+
+- An abstract contract is the one with at least one function that is not implemented and is declared using the abstract keywork.
+- You can mark a contract as being abstract even though all functions are implemented.
+- An abstract contract cannot be deployed.
+
+## Interfaces
+
+- Interfaces are similar to abstract contracts, but they cannot have any functions implemented.
+- Interfaces can be inherited.
+- Interfaces have further restractions.
+  - They cannot inherit from other contracts,but they can inherit from other interfaces.
+  - All declared functions must be external
+  - They cannot declare a constructor.
+  - They cannot declare state variables.
+- An interface is created using the interface keyword instead of contract.
+
+## ERC20 Token Standard
+
+- "A token" is designed to represent something of value but also thins like voting right or discount vouchers. "It can represent any fungible trading good".
+- ERC stands for "Ethereum Request for Comments". An ERC is a form of proposal and its purpose is to define standards and practices.
+- EIP stands for Ethereum Improvement Proposal and makes changes to the actual code of Ethereum. ERC is just giudance on how to use different features of Ethereum.
+- ERC20 is a proposal that intends to standardize how a token contract should be defined, how we interact with such a token contract and how these contracts interact with each other.
+- ERC20 is a standard interface used by application such as wallets, decentralized exchanges, and so on to interact with tokens.
+- transfer() function is used to send tokens from one uer to another, but it doesnt work well when tokens are being used to pay for a function in a smart contract.
+- ERC20 standard defined a mapping data structure named allowed and 2 functions approve() and transferFrom() that permit a token owner to give another address approval to transfer up to a number of tkens known as allwance. Allowances for an address can only be set by the owner of that address.
